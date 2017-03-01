@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usercenter.externalTask.data.TaskAllcheckUnqudetailsMapper">
+
+
+<select id="getTaskAllcheckUnqudetailsList" parameterType="map" resultType="usercenter.externalTask.model.TaskAllcheckUnqudetails">
+	select
+		`t_task_allcheck_unqudetails.detail_id,
+		t_task_allcheck_unqudetails.jldh,
+		t_task_allcheck_unqudetails.jlxh,
+		t_task_allcheck_unqudetails.xmmc,
+		t_task_allcheck_unqudetails.bhgs
+	from
+		t_task_allcheck_unqudetails
+</select>
+<insert id="addTaskAllcheckUnqudetails" parameterType="usercenter.externalTask.model.TaskAllcheckUnqudetails" keyProperty="" useGeneratedKeys="true">
+	insert into t_task_allcheck_unqudetails
+	(
+		jldh,
+		jlxh,
+		xmmc,
+		bhgs
+	)
+	values
+	(
+		#{jldh},
+		#{jlxh},
+		#{xmmc},
+		#{bhgs}
+	)
+</insert>
+<update id="updateTaskAllcheckUnqudetails" parameterType="usercenter.externalTask.model.TaskAllcheckUnqudetails">
+	update t_task_allcheck_unqudetails
+		set
+			detail_id = #{detail_id},
+			jldh = #{jldh},
+			jlxh = #{jlxh},
+			xmmc = #{xmmc},
+			bhgs = #{bhgs}
+		where  = #{}
+</update>
+<delete id="deleteTaskAllcheckUnqudetails" parameterType="usercenter.externalTask.model.TaskAllcheckUnqudetails">
+	delete from t_task_allcheck_unqudetails
+	where  = #{}
+</delete>
+</mapper>

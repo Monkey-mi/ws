@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="platform.company.data.PfApplicationCategoryFromErpMapper">
+
+<insert id="addApplicationCategoryFromERP" parameterType="map" keyProperty="id" useGeneratedKeys="true">
+	insert into t_access_application_category
+	(
+		category_id,
+		create_dt,
+		record_id,
+		supplier_id
+	)
+	values
+	(
+		#{category_id},
+		#{create_dt},
+		#{record_id},
+		#{supplier_id}
+	)
+</insert>
+<update id="updateApplicationCategoryFromERP" parameterType="map">
+	update t_access_application_category
+		set
+			category_id = #{lbbh},
+			create_dt = #{create_dt}
+		where record_id = #{record_id}
+</update>
+<delete id="deleteApplicationCategoryFromERP" parameterType="int">
+	delete from t_access_application_category
+	where record_id = #{record_id}
+</delete>
+
+<select id="getCategoryIdFromOut" parameterType="String" resultType="Integer">
+    select category_id from t_purchase_category where lbbh=#{lbbh}
+</select>
+</mapper>

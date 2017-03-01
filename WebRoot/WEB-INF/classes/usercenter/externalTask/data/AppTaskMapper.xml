@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usercenter.externalTask.data.AppTaskMapper">
+<select id="getAppTaskList" parameterType="map" resultType="usercenter.externalTask.model.AppTask">
+	select
+		t_app_task.t_id,
+		t_app_task.rwdh,
+		t_app_task.product_name,
+		t_app_task.serial_no,
+		t_app_task.state,
+		t_app_task.send_company,
+		t_app_task.receive_company,
+		t_app_task.total_qty,
+		t_app_task.produced_qty,
+		t_app_task.confirmed_qty,
+		t_app_task.plan_start,
+		t_app_task.plan_complete,
+		t_app_task.qc_type,
+		t_app_task.scdh,
+		t_app_task.product_pic,
+		t_app_task.czsj,
+		t_app_task.stopreason,
+		t_app_task.send_time,
+		t_app_task.receive_time,
+		t_app_task.finish_product_time,
+		t_app_task.finish_task_time,
+		t_app_task.qualified_qty,
+		t_app_task.stop_time,
+		t_app_task.remark,
+		t_app_task.operator_file,
+		t_app_task.producers_company_name,
+		t_app_task.confirmed_qtyVo,
+		t_app_task.sendout_qty,
+		t_app_task.ddh,
+		t_app_task.is_delete,
+		t_app_task.bzbh,
+		t_app_task.bzmc
+	from
+		t_app_task
+</select>
+<insert id="addAppTask" parameterType="usercenter.externalTask.model.AppTask" keyProperty="" useGeneratedKeys="true">
+	insert into t_app_task
+	(
+		t_id,
+		rwdh,
+		product_name,
+		serial_no,
+		state,
+		send_company,
+		receive_company,
+		total_qty,
+		produced_qty,
+		confirmed_qty,
+		plan_start,
+		plan_complete,
+		qc_type,
+		scdh,
+		product_pic,
+		czsj,
+		stopreason,
+		send_time,
+		receive_time,
+		finish_product_time,
+		finish_task_time,
+		qualified_qty,
+		stop_time,
+		remark,
+		operator_file,
+		producers_company_name,
+		confirmed_qtyVo,
+		sendout_qty,
+		ddh,
+		is_delete,
+		bzbh,
+		bzmc
+	)
+	values
+	(
+		#{t_id},
+		#{rwdh},
+		#{product_name},
+		#{serial_no},
+		#{state},
+		#{send_company},
+		#{receive_company},
+		#{total_qty},
+		#{produced_qty},
+		#{confirmed_qty},
+		#{plan_start},
+		#{plan_complete},
+		#{qc_type},
+		#{scdh},
+		#{product_pic},
+		#{czsj},
+		#{stopreason},
+		#{send_time},
+		#{receive_time},
+		#{finish_product_time},
+		#{finish_task_time},
+		#{qualified_qty},
+		#{stop_time},
+		#{remark},
+		#{operator_file},
+		#{producers_company_name},
+		#{confirmed_qtyVo},
+		#{sendout_qty},
+		#{ddh},
+		#{is_delete},
+		#{bzbh},
+		#{bzmc}
+	)
+</insert>
+<update id="updateAppTask" parameterType="usercenter.externalTask.model.AppTask">
+	update t_app_task
+		set
+			t_id = #{t_id},
+			rwdh = #{rwdh},
+			product_name = #{product_name},
+			serial_no = #{serial_no},
+			state = #{state},
+			send_company = #{send_company},
+			receive_company = #{receive_company},
+			total_qty = #{total_qty},
+			produced_qty = #{produced_qty},
+			confirmed_qty = #{confirmed_qty},
+			plan_start = #{plan_start},
+			plan_complete = #{plan_complete},
+			qc_type = #{qc_type},
+			scdh = #{scdh},
+			product_pic = #{product_pic},
+			czsj = #{czsj},
+			stopreason = #{stopreason},
+			send_time = #{send_time},
+			receive_time = #{receive_time},
+			finish_product_time = #{finish_product_time},
+			finish_task_time = #{finish_task_time},
+			qualified_qty = #{qualified_qty},
+			stop_time = #{stop_time},
+			remark = #{remark},
+			operator_file = #{operator_file},
+			producers_company_name = #{producers_company_name},
+			confirmed_qtyVo = #{confirmed_qtyVo},
+			sendout_qty = #{sendout_qty},
+			ddh = #{ddh},
+			is_delete = #{is_delete},
+			bzbh = #{bzbh},
+			bzmc = #{bzmc}
+		where  = #{}
+</update>
+<delete id="deleteAppTask" parameterType="usercenter.externalTask.model.AppTask">
+	delete from t_app_task
+	where  = #{}
+</delete>
+
+<!-- 通过任务单号获取Tid -->
+<select id="getTidByRwdh" parameterType="java.lang.String" resultType="java.lang.Integer">
+	select 
+		t_id
+	from 
+		t_app_task
+	where 
+		rwdh = #{rwdh}
+		and
+		state != 30
+	limit 1	
+</select>
+
+<!-- 根据任务单号获取任务信息 -->
+<select id="getTaskMapByRwdh" parameterType="java.lang.String" resultType="map">
+	select 
+		confirmed_qty,
+		qualified_qty
+	from 
+		t_app_task
+	where 
+		rwdh = #{rwdh}
+		and
+		state != 30
+	limit 1		
+</select>
+
+<!-- 根据任务单号更新任务信息 -->
+<update id="updateTaskInfoByRwdh" parameterType="map">
+	update
+		t_app_task
+	set
+		confirmed_qty = #{confirmedQty},
+		qualified_qty = #{qualifiedQty}
+	where
+		rwdh = #{rwdh}
+</update>
+</mapper>
